@@ -40,9 +40,14 @@ while ($vereador = mysql_fetch_object($rsVereadores)){
 	$wikiStr .="|-
 | '''Total''' || '''R$ ".number_format($totalDespesas,2,',','.')."'''
 |}";
+	
+	$query = "SELECT ranking FROM ranking_gastos WHERE id_parlamentar = ".$vereador->id;
+	$rsRank = mysql_query($query);
+	$rank = mysql_fetch_object($rsRank);
+	
 	$wikiStr .= "
-O vereador '''".$vereador->nome."''', é o '''X''' colocado entre os [[vereadores|55 vereadores]] no [[ranking de gastos com gabinete]].";
-		
+O vereador '''".$vereador->nome."''', é o '''".$rank->ranking."º''' colocado entre os [[vereadores|55 vereadores]] no [[ranking de gastos com gabinete]].";
+			
 	$wikiStr .="
 ======Relação de funcionários ligados ao gabinete do vereador======
 {| border=1
@@ -68,16 +73,19 @@ O vereador '''".$vereador->nome."''', é o '''X''' colocado entre os [[vereadore
 ===== Índice de presença em sessões plenárias e extraordinárias =====
 O vereador '''".$vereador->nome."''' compareceu em '''[[sessões ordinárias presentes|x%]]''' das [[sessões ordinárias]] desde início do mandato. E em '''[[sessões extraordinárias presentes|x%]]''' das [[sessões extraordinárias]]. Com um total de '''[[sessões totais|x%]]''' de presença nas [[sessões]]. '''X%''' das [[sessões que faltou|faltas]] foram [[sessões justificadas|justificadas]].
 
-O vereador '''".$vereador->nome."''' é o '''X''' colocado entre os [[vereadores|55 vereadores]] no [[racking de presença]] nas [[sessões]].
+O vereador '''".$vereador->nome."''' é o '''X''' colocado entre os [[vereadores|55 vereadores]] no [[ranking de presença]] nas [[sessões]].
 
 =====Votações=====
 [[Matérias votadas pelo vereador '''".$vereador->nome."''']]
 
+[[votados sim|X% sim]], [[votados não|X%não]], [[abstendidos|X%abstenção]], [[não votados|X%obstruções]]
 ====Matérias propostas====
 =====Matéra tipo 1=====
 =====Matéra tipo 2=====
 =====Matéra tipo 3=====
-[[votados sim|X% sim]], [[votados não|X%não]], [[abstendidos|X%abstenção]], [[não votados|X%obstruções]]
+====Nota====
+O conteúdo deste mandato foi gerado pela ferramenta [[CMSPWiki]], com base nos dados disponibilizados pela [[Câmara Municipal de São Paulo]], durante o 1° Hackathon - Desafio de dados abertos da Maratona Hacker da Câmara Municipal de São Paulo.
+	
 ";
 
 	$wikiStr .= "\n\n\n\n\n<hr/>\n\n\n\n";
