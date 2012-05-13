@@ -178,9 +178,22 @@ if (empty($_GET)){
 		}
 	}
 */
-	
+
+/*	//tipo_materias (ok)
+	$url = 'http://www2.camara.sp.gov.br/projetos/tipo_materia_legislativa.xml';
+	$xmlObj = simplexml_load_file($url);
+	foreach($xmlObj->TIPO_MATERIA_LEGISLATIVA as $tipo_materia){
+		$query = "INSERT INTO materiatipo
+		(descricao,codigo,abreviacao)
+		VALUES ('".$tipo_materia->TXT_MTRA_LEGL."',
+				'".$tipo_materia->COD_MTRA_LEGL."',
+				'".$tipo_materia->SGL_MTRA_LEGL."')";
+		mysql_query($query) or print(mysql_error());
+	}
+*/
 	mysql_close($conn);
 }
+
 
 ?>
 </pre>
