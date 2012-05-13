@@ -29,8 +29,24 @@ if (empty($_GET)){
 				'".(string) $funcionario->Centro_de_Custos."')";
 		mysql_query($query,$conn);
 	}
-	
 */
+
+/*	//funcionarios fix (ok)
+	mysql_query("DELETE FROM funcionario WHERE centro_custo NOT LIKE '%gab%'",$conn);
+	$query = "SELECT * FROM funcionario";
+	$rsFuncionarios = mysql_query($query,$conn) or print(mysql_error());
+	while($funcionario = mysql_fetch_object($rsFuncionarios)){
+		$gabinete = (int) $funcionario->centro_custo."\n";
+		if ($gabinete == 0) {
+			mysql_query("DELETE FROM funcionario WHERE id = ".$funcionario->id,$conn);
+		} else {
+			mysql_query ("UPDATE funcionario
+			SET gabinete = ".$gabinete."  
+			WHERE id = ".$funcionario->id);
+		}
+	}
+*/
+
 	 // vereadores (ok)
 /*
 	$xmlObj = simplexml_load_file('http://www2.camara.sp.gov.br/SIP/BaixarXML.aspx?arquivo=Presencas_2012_05_10_[0].xml');
