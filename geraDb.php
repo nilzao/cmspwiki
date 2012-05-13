@@ -58,7 +58,7 @@ if (empty($_GET)){
 	}
 */
 	
-	// despesas por gabinete
+/*	// despesas por gabinete (ok)
 	$arrayUrl = array();
 	
 	$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/200904.xml';
@@ -138,9 +138,9 @@ if (empty($_GET)){
 			}
 		}
 	}
+*/	
 	
-	
-	// xml 2009 até março porco, em outro formato, fazer outro xgh
+/*	// xml 2009 até março porco, em outro formato
 	$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/200901.xml';
 	$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/200902.xml';
 	$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/200903.xml';
@@ -177,7 +177,10 @@ if (empty($_GET)){
 			}
 		}
 	}
+*/
+	
 	mysql_close($conn);
 }
+
 ?>
 </pre>
