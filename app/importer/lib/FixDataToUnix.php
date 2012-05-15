@@ -14,7 +14,6 @@ class app_importer_lib_FixDataToUnix {
 			$date = new DateTime($str);
 		} catch (Exception $e) {
 			echo $e->getMessage();
-			exit(1);
 		}
 		$str = $date->format('Y-m-d');
 		return $str;
