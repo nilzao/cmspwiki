@@ -1,11 +1,8 @@
 como utilizar:
 
-1- criar a base de dados mysql, importar o banco hackcmsp.sql
-2- editar o arquivo connect.php com os dados de acesso de banco: usuário senha endereço e nome do banco
-3- rodar o script geraRankingDespesasGabinete.php
-4- rodar o script geraWikiVereadores.php
-
-Nesta versão, os dados são apresentados no formato wiki possibilitando copiar e colar para qualquer mediawiki.
+1- criar a base de dados mysql, importar o banco cmsptmp.sql.gz
+2- editar arquivo com dados de usuario, senha, host e nome do banco
+3- rodar scripts geradores
 
 A proposta final é automatizar com um bot publicador. 
 
