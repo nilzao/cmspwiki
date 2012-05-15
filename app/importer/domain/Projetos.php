@@ -16,46 +16,34 @@ class app_importer_domain_Projetos {
 	}
 	
 	public function indexHandler(){
-		$this->verificaVereadorTxt
-			('./dadosExt/autor.txt');
+		$url = './dadosExt/projetos.txt';
+		$this->import($url);
+		echo "\nfim\n\n";
 	}
 	
-	public function verificaVereadorTxt($url){
+	public function import($url){
+		/*
+		pl/162
+		*/
+		$projetoAoDb = new app_importer_ao_db_Projetos();
+		$projetoBeanDb = new app_importer_bean_db_Projetos();
 		$i = 0;
 		$handle = fopen($url,'r');
-		$arrayOutros = array('E OUTROS',
-							 'EXECUTIVO',
-							 'MESA DA CAMARA MUNICIPAL DE SAO PAULO',
-							 'ASSOCIACAO DE COMISSARIOS DE VOO DO BRASIL',
-							 'ADMINISTRACAO PUBLICA',
-							 'POLITICA URBANA,METROPOLITANA,MEIO AMB.',
-							 'COLETA ASSINATURAS PRIV.CMTC-PAS.PUBLICO',
-							 'TRIBUNAL DE CONTAS DO MUNICIPIO',
-							 'ASSEMBLEIA MUNICIPAL CONSTITUINTE',
-							 'LIDERANCA DAS BANCADAS',
-							 'CONSTITUICAO E JUSTICA',
-							 'EDUCACAO, CULTURA E ESPORTES',
-							 'CPI-TRIBUNAL DE CONTAS DO MUNICIPIO',
-							 'SAUDE, PROMOCAO SOCIAL E TRABALHO',
-							 'DEMOCRATAS',
-							 'FINANCAS E ORCAMENTO');
-		$arrayErros = array();
 		while (($data = fgetcsv($handle,0,'#')) !== FALSE) {
-			if(!empty($data[3]) 
-					&& $i!=0 
-					&& !in_array($data[3], $arrayOutros)
-					&& (substr_count($data[3], "COMISSAO") < 1)
-					&& (substr_count($data[3], "PARTIDO") < 1)
-					&& (substr_count($data[3], "PART.") < 1)){
-				//echo $data[3];
-				if (!app_importer_domain_Vereadores::getInstance()->validaNome($data[3])){
-					//echo $data[3]." - ERRO";
-					$arrayErros[$data[3]] = 'ERRO';
-				}
+			if($i!=0 && !empty($data[6])){
+				$projetoBeanDb->id = 0;
+				$projetoBeanDb->tipo_projeto = strtoupper(utf8_encode($data[0]));
+				$projetoBeanDb->numero_projeto = strtoupper(utf8_encode($data[1]));
+				$projetoBeanDb->data_projeto = strtoupper((utf8_encode($data[2])));
+				$projetoBeanDb->ementa = strtoupper((utf8_encode($data[3])));
+				$projetoBeanDb->tipo_norma = strtoupper(utf8_encode($data[4]));
+				$projetoBeanDb->numero_norma = strtoupper((utf8_encode($data[5])));
+				$projetoBeanDb->data_norma = strtoupper((utf8_encode($data[6])));
+				
+				$projetoAoDb->upsert($projetoBeanDb);
 			}
 			$i++;
 		}
-		print_r($arrayErros);
 		fclose ($handle);
 	}
 }

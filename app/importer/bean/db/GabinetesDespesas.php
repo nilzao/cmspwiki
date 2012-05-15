@@ -11,7 +11,7 @@ class app_importer_bean_db_GabinetesDespesas {
 	public function getValor(){
 		$valor = (string) $this->valor;
 		$valor = str_replace(',', '.', $valor);
-		$valor = number_format($valor,2);
-		return $valor;
+		//$valor = number_format($valor,2);
+		return (float) $valor;
 	}
 }

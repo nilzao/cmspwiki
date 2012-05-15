@@ -92,7 +92,6 @@ class app_importer_domain_Despesas {
 			$this->import($url,false);
 		}
 		
-		
 		foreach($arrayUrl as $url){
 			echo $url."<br/>\n";
 			$this->import($url);
