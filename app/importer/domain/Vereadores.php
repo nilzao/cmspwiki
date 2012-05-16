@@ -38,7 +38,8 @@ class app_importer_domain_Vereadores {
 	}
 	*/
 	public function indexHandler(){
-		//
+		$this->importVereadoresJson();
+		$this->importVereadoresVereancasJson();
 	}
 	
 	public function validaNome($nomeVereador){

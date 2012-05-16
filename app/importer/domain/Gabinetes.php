@@ -16,11 +16,12 @@ class app_importer_domain_Gabinetes {
 	}
 	
 	public function indexHandler(){
-		echo "Gabinete";
+		$url = 'http://www2.camara.sp.gov.br/Dados_abertos/vereador/Lista_Vereadores.xml';
+		$this->import($url);
 	}
 	
-	public function import(){
-		$url = 'http://www2.camara.sp.gov.br/Dados_abertos/vereador/Lista_Vereadores.xml';
+	public function import($url){
+		$url = '';
 		$xmlObj = simplexml_load_file($url);
 		$gabineteAoDb = new app_importer_ao_db_Gabinetes();
 		$gabineteBeanDb = new app_importer_bean_db_Gabinetes();
