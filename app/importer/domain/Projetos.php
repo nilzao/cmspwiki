@@ -23,6 +23,7 @@ class app_importer_domain_Projetos {
 	
 	public function import($url){
 		$projetoAoDb = new app_importer_ao_db_Projetos();
+		$projetoAoDb->truncate();
 		$projetoBeanDb = new app_importer_bean_db_Projetos();
 		$i = 0;
 		$handle = fopen($url,'r');
