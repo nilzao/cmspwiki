@@ -165,9 +165,9 @@ class app_importer_domain_Vereadores {
 			}
 		}
 		if (count($arrayErroVereador) > 0){
-			echo "Vereadores não encontrados:\n";
+			echo "Vereadores anteriores não encontrados:\n";
 			foreach($arrayErroVereador as $k => $v){
-				echo " - [".$k."]";
+				echo " - [".$k."]\n";
 			}
 		}
 	}
