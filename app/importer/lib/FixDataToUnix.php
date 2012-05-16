@@ -13,7 +13,8 @@ class app_importer_lib_FixDataToUnix {
 		try {
 			$date = new DateTime($str);
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			echo "\n".$e->getMessage()."\n";
+			$date = new DateTime('01-01-1800');
 		}
 		$str = $date->format('Y-m-d');
 		return $str;
