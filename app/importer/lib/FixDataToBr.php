@@ -9,7 +9,10 @@ class app_importer_lib_FixDataToBr {
 		$str = str_replace(".","-", $str);
 		$str = str_replace(" ","-", $str);
 		try {
-			$date = DateTime::createFromFormat("Y-m-d", $str,new DateTimeZone(app_importer_lib_Config::getInstance()->get_timezone()));
+			$date = DateTime::createFromFormat("Y-m-d", 
+					   $str,
+					   new DateTimeZone(
+					   		app_importer_lib_Config::getInstance()->get_timezone()));
 		} catch (Exception $e) {
 			echo "\n".$e->getMessage()."\n";
 			$date = new DateTime('01-01-1800');

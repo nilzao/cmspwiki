@@ -16,15 +16,11 @@ class app_importer_domain_ProjetosAutores {
 	}
 	
 	public function indexHandler(){
-		echo "projetosAutores\n";
-		/*
-		$this->verificaVereadorTxt
-			('./dadosExt/autor.txt');
-		*/
-		
 		$url = './dadosExt/autor.txt';
+		echo "import ProjetosAutores\n";
+		echo "url: $url \n";
 		$this->import($url);
-		echo "\n\nfim\n";
+		echo "\nfim\n";
 	}
 	
 	public function import($url){
@@ -89,6 +85,7 @@ class app_importer_domain_ProjetosAutores {
 		}
 	}
 	
+	/*
 	public function verificaVereadorTxt($url){
 		$i = 0;
 		$handle = fopen($url,'r');
@@ -127,4 +124,5 @@ class app_importer_domain_ProjetosAutores {
 		print_r($arrayErros);
 		fclose ($handle);
 	}
+	*/
 }
