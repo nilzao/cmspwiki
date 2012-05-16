@@ -22,15 +22,12 @@ class app_importer_domain_Projetos {
 	}
 	
 	public function import($url){
-		/*
-		pl/162
-		*/
 		$projetoAoDb = new app_importer_ao_db_Projetos();
 		$projetoBeanDb = new app_importer_bean_db_Projetos();
 		$i = 0;
 		$handle = fopen($url,'r');
 		while (($data = fgetcsv($handle,0,'#')) !== FALSE) {
-			if($i!=0 && !empty($data[6])){
+			if($i!=0 && !empty($data[3])){
 				$projetoBeanDb->id = 0;
 				$projetoBeanDb->tipo_projeto = strtoupper(utf8_encode($data[0]));
 				$projetoBeanDb->numero_projeto = strtoupper(utf8_encode($data[1]));

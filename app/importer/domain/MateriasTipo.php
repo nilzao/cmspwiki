@@ -24,6 +24,8 @@ class app_importer_domain_MateriasTipo {
 	
 	public function import($url){
 		$materiasTipoAoDb = new app_importer_ao_db_MateriasTipo();
+		$materiasTipoAoDb->truncate();
+		
 		$materiasTipoBeanDb = new app_importer_bean_db_MateriasTipo();
 		$xmlObj = simplexml_load_file($url);
 			foreach($xmlObj->TIPO_MATERIA_LEGISLATIVA as $tipo_materia){

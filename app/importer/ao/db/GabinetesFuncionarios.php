@@ -33,4 +33,14 @@ class app_importer_ao_db_GabinetesFuncionarios{
 		}*/
 		return $objmodel;
 	}
+	
+	public function truncate(){
+		$query = "TRUNCATE gabinetes_funcionarios";
+		$stmt = $this->dataBase->conn->execute($query);
+		if (!$stmt){
+			print $this->dataBase->conn->ErrorMsg();
+			return false;
+		}
+		return true;
+	}
 }

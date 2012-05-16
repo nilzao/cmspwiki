@@ -16,26 +16,47 @@ class app_importer_domain_ProjetosAutores {
 	}
 	
 	public function indexHandler(){
-		echo "projetosAutores";
+		echo "projetosAutores\n";
 		/*
 		$this->verificaVereadorTxt
 			('./dadosExt/autor.txt');
 		*/
+		
 		$url = './dadosExt/autor.txt';
 		$this->import($url);
-		echo "fim";
+		echo "\n\nfim\n";
 	}
 	
 	public function import($url){
-		$i = 0;
+		$projetosAoDb = new app_importer_ao_db_Projetos();
+		$projetosBeanDb = new app_importer_bean_db_Projetos();
 		
+		$vereadorAoDb = new app_importer_ao_db_Vereadores();
+		$vereadorBeanDb = new app_importer_bean_db_Vereadores();
+		
+		$i = 0;
 		$handle = fopen($url,'r');
 		while (($data = fgetcsv($handle,0,'#')) !== FALSE) {
 			if ((!empty($data[3]) && $i!=0)){
-				echo $data[3];
-				$i++;
+				
+				
+				$projetosBeanDb->id = 0;
+				$projetosBeanDb->tipo_projeto = strtoupper(utf8_encode($data[0]));
+				$projetosBeanDb->numero_projeto = strtoupper(utf8_encode($data[1]));
+				$projetosBeanDb->data_projeto = strtoupper(utf8_encode($data[2]));
+				
+				$vereadorBeanDb->id = 0;
+				$vereadorBeanDb = $vereadorAoDb->getByNomeFix($data[3]);
+
+				$projetosAoDb->getByTipoNumData($projetosBeanDb);
+				
+				echo $data[3]."\n";
+				print_r($projetosBeanDb);
+				echo "\n";
+				print_r($vereadorBeanDb);
+				echo "\n========================================\n";
 			}
-			
+			$i++;
 		}
 		fclose ($handle);
 		

@@ -37,23 +37,43 @@ class app_importer_ao_db_Projetos{
 		return $objmodel;
 	}
 	
-	public function getByNomeFix($nome){
-		$nome = app_importer_lib_FixVereadorNome::fixNome($nome);
-		$query = "SELECT vereadores.id,vereadores.nome,vereadores.id_out from vereadores
-			LEFT JOIN vereadores_nome_fix ON(vereadores.id=vereadores_nome_fix.id_vereador)
-			WHERE vereadores_nome_fix.nome_errado = ?";
-		$stmt = $this->dataBase->conn->execute($query,$nome);
-		$vereadorBeanDb = new app_importer_bean_db_Vereadores();
-		$vereadorBeanDb->id = 0;
+	public function getByTipoNumData(app_importer_bean_db_Projetos $objmodel){
+		$array = array($objmodel->tipo_projeto,
+					   $objmodel->numero_projeto,
+					   $objmodel->getDataProjeto());
+		$query = "SELECT 
+			id,tipo_projeto,numero_projeto,data_projeto,
+			ementa,tipo_norma,numero_norma,data_norma
+		 	FROM projetos WHERE 
+			tipo_projeto = ? 
+			AND numero_projeto = ?
+			AND data_projeto = ?";
+		$stmt = $this->dataBase->conn->execute($query,$array);
+		$objmodel->id = 0;
 		if (!$stmt){
 			var_dump($nome);
 			print $this->dataBase->conn->ErrorMsg();
 		}
 		else if ($l = $stmt->FetchRow()) {
-			$vereadorBeanDb->id = $l['id'];
-			$vereadorBeanDb->id_out = $l['id_out'];
-			$vereadorBeanDb->nome = $l['nome'];
+			$objmodel->id = $l['id'];
+			$objmodel->tipo_projeto = $l['tipo_projeto'];
+			$objmodel->numero_projeto = $l['numero_projeto'];
+			$objmodel->setDataProjeto($l['data_projeto']);
+			$objmodel->ementa = $l['ementa'];
+			$objmodel->tipo_norma = $l['tipo_norma'];
+			$objmodel->numero_norma = $l['numero_norma'];
+			$objmodel->setDataNorma($l['data_norma']);
 		}
-		return $vereadorBeanDb;
+		return $objmodel;
+	}
+	
+	public function truncate(){
+		$query = "TRUNCATE projetos";
+		$stmt = $this->dataBase->conn->execute($query);
+		if (!$stmt){
+			print $this->dataBase->conn->ErrorMsg();
+			return false;
+		}
+		return true;
 	}
 }

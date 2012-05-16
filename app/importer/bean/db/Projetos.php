@@ -9,6 +9,16 @@ class app_importer_bean_db_Projetos {
 	public $numero_norma;
 	public $data_norma;
 	
+	public function setDataProjeto($str){
+		$str = app_importer_lib_FixDataToBr::fixData($str);
+		$this->data_projeto = $str;
+	}
+	
+	public function setDataNorma($str){
+		$str = app_importer_lib_FixDataToBr::fixData($str);
+		$this->data_norma = $str;
+	}
+	
 	public function getDataProjeto(){
 		$date = app_importer_lib_FixDataToUnix::fixData($this->data_projeto);
 		return $date;

@@ -55,4 +55,14 @@ class app_importer_ao_db_Gabinetes{
 		}
 		return $gabineteBeanDb;
 	}
+	
+	public function truncate(){
+		$query = "TRUNCATE gabinetes";
+		$stmt = $this->dataBase->conn->execute($query);
+		if (!$stmt){
+			print $this->dataBase->conn->ErrorMsg();
+			return false;
+		}
+		return true;
+	}
 }

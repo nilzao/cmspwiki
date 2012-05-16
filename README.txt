@@ -6,20 +6,20 @@ importador:
 3- rodar os importadores no console na ordem: 
 	  1-"php index.php importer Vereadores"
 	  2-"php index.php importer Gabinetes"
+	  3-"php index.php importer Projetos"
+		"php index.php importer ProjetosAutores"
 		"php index.php importer Despesas"
 		"php index.php importer Funcionarios"
 		"php index.php importer MateriasTipo"
-		"php index.php importer ProjetosAutores"
-		"php index.php importer Projetos"
-	
+		
 ou rodar no navegador:
 	  1-index.php?a=importer&c=Vereadores
 	  2-index.php?a=importer&c=Gabinetes
+	  3-index.php?a=importer&c=Projetos
+		index.php?a=importer&c=ProjetosAutores
 		index.php?a=importer&c=Despesas
 		index.php?a=importer&c=Funcionarios
-		index.php?a=importer&c=MateriasTipo
-		index.php?a=importer&c=ProjetosAutores
-		index.php?a=importer&c=Projetos
+		index.php?a=importer&c=MateriasTipo		
 
 exporador / publicador:
 	em desenvolvimento.

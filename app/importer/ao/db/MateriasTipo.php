@@ -33,4 +33,14 @@ class app_importer_ao_db_MateriasTipo{
 		}*/
 		return $objmodel;
 	}
+	
+	public function truncate(){
+		$query = "TRUNCATE materias_tipo";
+		$stmt = $this->dataBase->conn->execute($query);
+		if (!$stmt){
+			print $this->dataBase->conn->ErrorMsg();
+			return false;
+		}
+		return true;
+	}
 }

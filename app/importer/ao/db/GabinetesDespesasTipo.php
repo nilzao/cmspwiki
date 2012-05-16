@@ -50,4 +50,14 @@ class app_importer_ao_db_GabinetesDespesasTipo{
 		}
 		return $gabineteDespesaTipoBeanDb;
 	}
+	
+	public function truncate(){
+		$query = "TRUNCATE gabinetes_despesas_tipo";
+		$stmt = $this->dataBase->conn->execute($query);
+		if (!$stmt){
+			print $this->dataBase->conn->ErrorMsg();
+			return false;
+		}
+		return true;
+	}
 }

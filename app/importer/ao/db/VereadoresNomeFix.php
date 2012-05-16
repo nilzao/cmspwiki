@@ -32,6 +32,14 @@ class app_importer_ao_db_VereadoresNomeFix{
 		return $objmodel;
 	}
 	
-	
+	public function truncate(){
+		$query = "TRUNCATE vereadores_nome_fix";
+		$stmt = $this->dataBase->conn->execute($query);
+		if (!$stmt){
+			print $this->dataBase->conn->ErrorMsg();
+			return false;
+		}
+		return true;
+	}
 	
 }
