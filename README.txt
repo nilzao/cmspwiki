@@ -10,6 +10,7 @@ importador:
 		"php index.php importer Funcionarios"
 		"php index.php importer MateriasTipo"
 		"php index.php importer ProjetosAutores"
+		"php index.php importer Projetos"
 	
 ou rodar no navegador:
 	  1-index.php?a=importer&c=Vereadores
@@ -18,6 +19,7 @@ ou rodar no navegador:
 		index.php?a=importer&c=Funcionarios
 		index.php?a=importer&c=MateriasTipo
 		index.php?a=importer&c=ProjetosAutores
+		index.php?a=importer&c=Projetos
 
 exporador / publicador:
 	em desenvolvimento.
