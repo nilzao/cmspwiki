@@ -41,8 +41,6 @@ class app_importer_domain_Projetos {
 					$projetoBeanDb->numero_norma = strtoupper((utf8_encode($data[5])));
 					$projetoBeanDb->data_norma = strtoupper((utf8_encode($data[6])));
 					
-					$projetoBeanDb->getDataNorma();
-					$projetoBeanDb->getDataProjeto();
 					$projetoAoDb->upsert($projetoBeanDb);
 				}
 				$i++;
@@ -50,8 +48,8 @@ class app_importer_domain_Projetos {
 		}
 		
 		/*
-		// reportar bug de fgetscv...
-		while (($data = fgetcsv($handle,0,'#')) !== FALSE) {
+		// para fgetscv tem erro de formatação para o delimitador de texto padrão '"' 
+		while (($data = fgetcsv($handle,0,'#',"\x01")) !== FALSE) {
 			if($i!=0 && !empty($data[3])){
 				$projetoBeanDb->id = 0;
 				$projetoBeanDb->tipo_projeto = strtoupper(utf8_encode($data[0]));
@@ -63,10 +61,6 @@ class app_importer_domain_Projetos {
 				$projetoBeanDb->data_norma = strtoupper((utf8_encode($data[6])));
 				
 				$projetoAoDb->upsert($projetoBeanDb);
-			}
-			if($i == 1433){
-				print_r($data);
-				die();
 			}
 			$i++;
 		}
