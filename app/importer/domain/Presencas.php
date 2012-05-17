@@ -23,9 +23,8 @@ class app_importer_domain_Presencas {
 	public function verificaVereadorXml($url){
 		$xmlObj = simplexml_load_file($url);
 		foreach ($xmlObj->Presencas->Vereador as $vereador) {
-			echo $vereador['NomeParlamentar'];
 			if (!app_importer_domain_Vereadores::getInstance()->validaNome($vereador['NomeParlamentar'])){
-				echo " - ERRO";
+				echo $vereador['NomeParlamentar']." - ERRO";
 			}
 			echo "\n";
 		}

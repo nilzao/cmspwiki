@@ -185,7 +185,8 @@ class app_importer_domain_Vereadores {
 						  'USHITARO_KAMIA'=>'KAMIA',
 						  'JOSE_FERREIRA_ZELAO'=>'ZELÃO',
 						  'HEIDA_LI'=>'HEIDA LI SIU YUK',
-						  'JOSE_OLIMPIO_SILVEIRA_MORAES'=>'MISSIONÁRIO JOSE OLIMPIO');
+						  'JOSE_OLIMPIO_SILVEIRA_MORAES'=>'MISSIONÁRIO JOSE OLIMPIO',
+						  'NELSON_ATTILA_RUSSOMANNO'=>'RUSSOMANO');
 		foreach($arrayFix as $k=>$v){
 			$vereadorBeanDb = $vereadorAoDb->getByNomeFix($k);
 			$vereadorNomeFixBeanDb->id = 0;
