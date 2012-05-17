@@ -16,7 +16,6 @@ class app_importer_domain_Despesas {
 	}
 	
 	public function indexHandler(){
-		
 		//formato antigo:
 		$arrayUrlOld = array();
 		$arrayUrlOld[] = 'http://www2.camara.sp.gov.br/SAEG/200708.xml';
@@ -81,19 +80,25 @@ class app_importer_domain_Despesas {
 		$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/201201.xml';
 		$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/201202.xml';
 		/*
+		foreach($arrayUrlOld as $url){
+			echo $url."\n";
+			$this->verificaVereadorXml($url);
+		}
 		foreach($arrayUrl as $url){
 			echo $url."\n";
 			$this->verificaVereadorXml($url);
 		}
 		*/
-		
+		echo "Limpando Tabelas\n";
+		$this->limpaTabelas();
+		echo "\nimport Despesas formato antigo\n";
 		foreach($arrayUrlOld as $url){
-			echo $url."\n";
+			echo "url: ".$url."\n";
 			$this->import($url,false);
 		}
-		
+		echo "\nimport Despesas formato atual\n";
 		foreach($arrayUrl as $url){
-			echo $url."\n";
+			echo "url: ".$url."\n";
 			$this->import($url);
 		}
 		echo "\nfim\n\n";
@@ -185,6 +190,16 @@ class app_importer_domain_Despesas {
 		}
 	}
 	
+	
+	private function limpaTabelas(){
+		$gabineteDespesaTipoAoDb =  new app_importer_ao_db_GabinetesDespesasTipo();
+		$gabineteDespesaEmpresaAoDb =  new app_importer_ao_db_GabinetesDespesasEmpresas();
+		$gabineteDespesaAoDb =  new app_importer_ao_db_GabinetesDespesas();
+	
+		$gabineteDespesaTipoAoDb->truncate();
+		$gabineteDespesaEmpresaAoDb->truncate();
+		$gabineteDespesaAoDb->truncate();
+	}
 	
 	public function verificaVereadorXml($url){
 		$xmlObj = simplexml_load_file($url);
