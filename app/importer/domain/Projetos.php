@@ -16,6 +16,7 @@ class app_importer_domain_Projetos {
 	}
 	
 	public function indexHandler(){
+		//$url = 'http://www2.camara.sp.gov.br/projetos/projetos.txt';
 		$url = './dadosExt/projetos.txt';
 		$this->import($url);
 		echo "\nfim\n\n";

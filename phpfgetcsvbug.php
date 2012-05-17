@@ -10,7 +10,7 @@ $strFile = "PL#311#03/06/2003#\"XXX'###
 PL#312#03/06/2003#\"YYY\"#Lei#13.814#13/05/2004";
 file_put_contents('csvbug.txt', $strFile);
 
-//$url = http://www2.camara.sp.gov.br/projetos/projetos.txt
+//$url = 'http://www2.camara.sp.gov.br/projetos/projetos.txt';
 //$url = 'dadosExt/projetos.txt';
 $url = 'csvbug.txt';
 $handle = fopen($url,'r');
