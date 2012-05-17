@@ -17,7 +17,6 @@ class app_importer_domain_Projetos {
 	
 	public function indexHandler(){
 		$url = './dadosExt/projetos.txt';
-		//$url = './dadosExt/projetos_teste.txt';
 		$this->import($url);
 		echo "\nfim\n\n";
 	}
@@ -41,6 +40,9 @@ class app_importer_domain_Projetos {
 					$projetoBeanDb->tipo_norma = strtoupper(utf8_encode($data[4]));
 					$projetoBeanDb->numero_norma = strtoupper((utf8_encode($data[5])));
 					$projetoBeanDb->data_norma = strtoupper((utf8_encode($data[6])));
+					
+					$projetoBeanDb->getDataNorma();
+					$projetoBeanDb->getDataProjeto();
 					$projetoAoDb->upsert($projetoBeanDb);
 				}
 				$i++;

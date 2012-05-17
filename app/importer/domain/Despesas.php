@@ -82,22 +82,21 @@ class app_importer_domain_Despesas {
 		$arrayUrl[] = 'http://www2.camara.sp.gov.br/SAEG/201202.xml';
 		/*
 		foreach($arrayUrl as $url){
-			echo $url."<br/>\n";
+			echo $url."\n";
 			$this->verificaVereadorXml($url);
 		}
 		*/
 		
 		foreach($arrayUrlOld as $url){
-			echo $url."<br/>\n";
+			echo $url."\n";
 			$this->import($url,false);
 		}
 		
 		foreach($arrayUrl as $url){
-			echo $url."<br/>\n";
+			echo $url."\n";
 			$this->import($url);
-		}		
-		
-		echo "fim";
+		}
+		echo "\nfim\n\n";
 	}
 	
 	/*
@@ -169,7 +168,6 @@ class app_importer_domain_Despesas {
 							}
 						}
 					} else if (0 < (float) $g_tipo_despesa->VL_DESP){
-						//print_r($g_tipo_despesa);
 						$gabineteDespesaBeanDb->id = 0;
 						$gabineteDespesaBeanDb->id_vereador = $id_vereador;
 						$gabineteDespesaBeanDb->id_gabinete_despesa_tipo =

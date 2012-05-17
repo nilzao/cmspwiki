@@ -21,6 +21,8 @@ class app_importer_domain_Vereadores {
 		echo "import Vereadores\n";
 		echo "url: $url \n";
 		$this->import($url);
+		echo "\nimport Vereancias:\n";
+		$this->importVereancas($url);
 		echo "\nfim\n";
 	}
 	
@@ -92,8 +94,7 @@ class app_importer_domain_Vereadores {
 				echo " - ".$k." - ".$v."\n";
 			}
 		}
-		echo "\nimport Vereancias:\n";
-		$this->importVereancas($url);
+		$this->fixNomesErrados();
 	}
 	
 	private function importVereancas($url){
@@ -169,6 +170,28 @@ class app_importer_domain_Vereadores {
 			foreach($arrayErroVereador as $k => $v){
 				echo " - [".$k."]\n";
 			}
+		}
+	}
+	
+	private function fixNomesErrados(){
+		/*go horse!*/
+		$vereadorAoDb = new app_importer_ao_db_Vereadores();
+		$vereadorNomeFixAoDb = new app_importer_ao_db_VereadoresNomeFix();
+		$vereadorNomeFixBeanDb = new app_importer_bean_db_VereadoresNomeFix();
+		
+		$arrayFix = array('MILTON_FERREIRA_DA_SILVA'=>'DR. MILTON FERREIRA',
+						  'MARCO_AURELIO_DE_ALMEIDA_CUNHA'=>'MARCO AURELIO CUNHA',
+						  'NETINHO_DE_PAULA '=>'NETINHO D PAULA',
+						  'USHITARO_KAMIA'=>'KAMIA',
+						  'JOSE_FERREIRA_ZELAO'=>'ZELÃO',
+						  'HEIDA_LI'=>'HEIDA LI SIU YUK',
+						  'JOSE_OLIMPIO_SILVEIRA_MORAES'=>'MISSIONÁRIO JOSE OLIMPIO');
+		foreach($arrayFix as $k=>$v){
+			$vereadorBeanDb = $vereadorAoDb->getByNomeFix($k);
+			$vereadorNomeFixBeanDb->id = 0;
+			$vereadorNomeFixBeanDb->setNomeErrado($v);
+			$vereadorNomeFixBeanDb->id_vereador = $vereadorBeanDb->id;
+			$vereadorNomeFixAoDb->upsert($vereadorNomeFixBeanDb);
 		}
 	}
 	
