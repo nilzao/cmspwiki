@@ -89,6 +89,7 @@ class app_importer_domain_Despesas {
 			$this->verificaVereadorXml($url);
 		}
 		*/
+		echo "import Despesas";
 		echo "Limpando Tabelas\n";
 		$this->limpaTabelas();
 		echo "\nimport Despesas formato antigo\n";
