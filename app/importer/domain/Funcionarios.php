@@ -26,8 +26,10 @@ class app_importer_domain_Funcionarios {
 	public function indexHandler(){
 		//$url = 'http://www2.camara.sp.gov.br/funcionarios/CMSP-XML-Funcionarios.xml';
 		$url = './dadosExt/CMSP-XML-Funcionarios.xml';
+		echo "import Funcionarios\n";
+		echo "url: $url \n";
 		$this->import($url);
-		echo "\nfim\n\n";
+		echo "\nfim\n";
 	}
 	
 	public function import($url){
@@ -35,6 +37,7 @@ class app_importer_domain_Funcionarios {
 		
 		$gabineteFuncionarioAoDb = new app_importer_ao_db_GabinetesFuncionarios();
 		$gabineteFuncionarioBeanDb = new app_importer_bean_db_GabinetesFuncionarios();
+		$gabineteFuncionarioAoDb->truncate();
 		
 		$gabineteAoDb = new app_importer_ao_db_Gabinetes();
 		$gabineteBeanDb = new app_importer_bean_db_Gabinetes();
