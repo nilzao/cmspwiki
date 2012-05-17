@@ -12,22 +12,16 @@ class app_importer_domain_Index {
 	}
 
 	public function handle(app_importer_bean_request_Index $beanIndex){
-		$this->beanIndex = $beanIndex;
-		$metodo = $this->beanIndex->getVarSample();
-		if (method_exists($this,$metodo)){
-			$this->$metodo();
-		} else {
-			$this->indexHandler();
-		}
+		$this->indexHandler();
 	}
 	
 	public function indexHandler(){
-		$beanView = new app_importer_bean_view_Index();
-		$beanView->setVarSample($this->beanIndex->getVarSample());
-		
-		$aoView = app_importer_ao_view_Index::getInstance($beanView);
-		$vl = knl_lib_ViewLoader::getInstance();
-		$vl->setVar('viewArray',$aoView->getViewArray());
-		$vl->display('app/importer','index');
+		app_importer_domain_Vereadores::getInstance()->handle();
+		app_importer_domain_Gabinetes::getInstance()->handle();
+		app_importer_domain_Projetos::getInstance()->handle();
+		app_importer_domain_MateriasTipo::getInstance()->handle();
+		app_importer_domain_Despesas::getInstance()->handle();
+		app_importer_domain_Funcionarios::getInstance()->handle();
+		app_importer_domain_ProjetosAutores::getInstance()->handle();
 	}
 }
