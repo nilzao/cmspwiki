@@ -16,8 +16,9 @@ class app_importer_domain_MateriasTipo {
 	}
 	
 	public function indexHandler(){
-		echo "materias\n";
 		$url = 'http://www2.camara.sp.gov.br/projetos/tipo_materia_legislativa.xml';
+		echo "import MateriasTipo\n";
+		echo "url: $url \n";
 		$this->import($url);
 		echo "\nfim\n\n";
 	}
