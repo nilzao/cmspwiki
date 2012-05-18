@@ -16,6 +16,7 @@ class app_importer_domain_ProjetosAutores {
 	}
 	
 	public function indexHandler(){
+		//$url = 'http://www2.camara.sp.gov.br/projetos/autor.txt';
 		$url = './dadosExt/autor.txt';
 		echo "import ProjetosAutores\n";
 		echo "url: $url \n";
