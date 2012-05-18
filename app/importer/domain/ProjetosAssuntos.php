@@ -25,57 +25,43 @@ class app_importer_domain_ProjetosAssuntos {
 	}
 	
 	public function import($url){
-		/*
-		$projetosAoDb = new app_importer_ao_db_Projetos();
 		$projetosBeanDb = new app_importer_bean_db_Projetos();
+		$projetosAssuntosBeanDb = new app_importer_bean_db_ProjetosAssuntos();
 		
+		$projetosAoDb = new app_importer_ao_db_Projetos();
+		$projetosAssuntosAoDb = new app_importer_ao_db_ProjetosAssuntos();
 		
-		
-		$vereadorAoDb = new app_importer_ao_db_Vereadores();
-		$vereadorBeanDb = new app_importer_bean_db_Vereadores();
+		$projetosAssuntosAoDb->truncate();
 		
 		$i = 0;
 		$handle = fopen($url,'r');
-		$arrayErroVereador = array();
 		$arrayErroProjetos = array();
-		while (($data = fgetcsv($handle,0,'#')) !== FALSE) {
-			if ((!empty($data[3]) && $i!=0)){
+		
+		while (($data = fgetcsv($handle,0,'#',"\x01")) !== FALSE) {
+			if ($i!=0 && count($data) == 4){
 				$projetosBeanDb->id = 0;
 				$projetosBeanDb->tipo_projeto = strtoupper(utf8_encode($data[0]));
 				$projetosBeanDb->numero_projeto = strtoupper(utf8_encode($data[1]));
 				$projetosBeanDb->data_projeto = strtoupper(utf8_encode($data[2]));
-				
-				$vereadorBeanDb->id = 0;
-				$vereadorBeanDb = $vereadorAoDb->getByNomeFix($data[3]);
 
 				$projetosAoDb->getByTipoNumData($projetosBeanDb);
 				
-				if ($vereadorBeanDb->id != 0 && $projetosBeanDb->id != 0){
-					$projetosAutoresBeanDb->id = 0;
-					$projetosAutoresBeanDb->id_projeto = $projetosBeanDb->id;
-					$projetosAutoresBeanDb->id_vereador = $vereadorBeanDb->id;
-					$projetosAutoresAoDb->upsert($projetosAutoresBeanDb);
-				} else if ($projetosBeanDb->id == 0){
+				if ($projetosBeanDb->id == 0){
 					$nome = strtoupper(utf8_encode($data[0]));
 					$nome .= "-".strtoupper(utf8_encode($data[1]));
 					$nome .= "-".strtoupper(utf8_encode($data[2]));
 					$arrayErroProjetos[$nome] = "ERRO";
 				} else {
-					$nome = strtoupper(utf8_encode($data[3]));
-					$arrayErroVereador[$nome] = "ERRO";
+					$projetosAssuntosBeanDb->id = 0;
+					$projetosAssuntosBeanDb->id_projeto = $projetosBeanDb->id;
+					$projetosAssuntosBeanDb->assunto_descricao = strtoupper(utf8_encode($data[3]));
+					//print_r($projetosAssuntosBeanDb);
+					$projetosAssuntosAoDb->upsert($projetosAssuntosBeanDb);
 				}
 			}
 			$i++;
 		}
 		fclose ($handle);
-		if (count($arrayErroVereador) > 0){
-			ksort($arrayErroVereador);
-			echo "Vereadores não encontrados: \n";
-			foreach($arrayErroVereador as $k => $v){
-				echo " - ".$k."\n";
-			}
-		}
-		
 		if (count($arrayErroProjetos) > 0){
 			ksort($arrayErroProjetos);
 			echo "Projetos não encontrados: \n";
@@ -83,6 +69,5 @@ class app_importer_domain_ProjetosAssuntos {
 				echo " - ".$k."\n";
 			}
 		}
-		*/
 	}
 }
