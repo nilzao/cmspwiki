@@ -29,9 +29,7 @@ class app_importer_domain_ProjetosAssuntos {
 		$projetosAoDb = new app_importer_ao_db_Projetos();
 		$projetosBeanDb = new app_importer_bean_db_Projetos();
 		
-		$projetosAutoresAoDb = new app_importer_ao_db_ProjetosAutores();
-		$projetosAutoresBeanDb = new app_importer_bean_db_ProjetosAutores();
-		$projetosAutoresAoDb->truncate();
+		
 		
 		$vereadorAoDb = new app_importer_ao_db_Vereadores();
 		$vereadorBeanDb = new app_importer_bean_db_Vereadores();
