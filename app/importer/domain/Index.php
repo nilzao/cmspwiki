@@ -23,5 +23,6 @@ class app_importer_domain_Index {
 		app_importer_domain_Despesas::getInstance()->handle();
 		app_importer_domain_Funcionarios::getInstance()->handle();
 		app_importer_domain_ProjetosAutores::getInstance()->handle();
+		app_importer_domain_ProjetosAssuntos::getInstance()->handle();
 	}
 }
