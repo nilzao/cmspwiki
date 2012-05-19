@@ -67,6 +67,37 @@ class app_importer_ao_db_Projetos{
 		return $objmodel;
 	}
 	
+	public function getByTipoNumAno(app_importer_bean_db_Projetos $objmodel,$ano){
+		$array = array($objmodel->tipo_projeto,
+				$objmodel->numero_projeto,
+				$ano.'-01-01',
+				$ano.'-12-31');
+		$query = "SELECT
+		id,tipo_projeto,numero_projeto,data_projeto,
+		ementa,tipo_norma,numero_norma,data_norma
+		FROM projetos WHERE
+		tipo_projeto = ?
+		AND numero_projeto = ?
+		AND data_projeto BETWEEN ? AND ?";
+		$stmt = $this->dataBase->conn->execute($query,$array);
+		$objmodel->id = 0;
+		if (!$stmt){
+			var_dump($objmodel);
+			print $this->dataBase->conn->ErrorMsg();
+		}
+		else if ($l = $stmt->FetchRow()) {
+			$objmodel->id = $l['id'];
+			$objmodel->tipo_projeto = $l['tipo_projeto'];
+			$objmodel->numero_projeto = $l['numero_projeto'];
+			$objmodel->setDataProjeto($l['data_projeto']);
+			$objmodel->ementa = $l['ementa'];
+			$objmodel->tipo_norma = $l['tipo_norma'];
+			$objmodel->numero_norma = $l['numero_norma'];
+			$objmodel->setDataNorma($l['data_norma']);
+		}
+		return $objmodel;
+	}
+	
 	public function truncate(){
 		$query = "TRUNCATE projetos";
 		$stmt = $this->dataBase->conn->execute($query);
