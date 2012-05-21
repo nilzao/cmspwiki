@@ -23,7 +23,7 @@ class app_exporter_domain_Vereadores {
 		$projetosAoDb = new app_exporter_ao_db_Projetos();
 		$vereadorVereancaAoDb = new app_exporter_ao_db_VereadoresVereancas();
 		$votacaoResumo = new app_exporter_ao_db_VereadoresVotacaoResumo();
-		//tel camara: (11) 3396-4000
+ 
 		$lista = $gabineteAoDb->getAll();
 		$jsonArray = array();
 		$i = 0;
