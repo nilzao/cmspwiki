@@ -21,7 +21,7 @@ class app_exporter_ao_db_VereadoresVereancas{
 				obs
 				FROM vereadores_vereancas
 				WHERE id_vereador = ?
-				AND data_ini BETWEEN '2008-12-31' AND '2013-01-01'
+				AND data_ini BETWEEN '2009-01-01' AND '2012-12-31'
 				ORDER BY data_ini
 				";
 		$stmt = $this->dataBase->conn->execute($query,$id);
