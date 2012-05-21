@@ -9,7 +9,7 @@ class app_exporter_ao_db_GabinetesDespesasResumo{
 	
 	public function getByListId($arrayListId){
 		$lista = array();
-		$strBind = array_fill_keys($arrayListId, '?');
+		$strBind = array_fill(0, count($arrayListId), '?');
 		$strBind = implode(',', $strBind);
 		$query = "SELECT 
 				gabinetes_despesas_tipo.descricao,
