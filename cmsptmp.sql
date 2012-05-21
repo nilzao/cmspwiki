@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 17/05/2012 às 15:31:38
+-- Tempo de Geração: 21/05/2012 às 20:33:28
 -- Versão do Servidor: 5.5.24-log
 -- Versão do PHP: 5.4.3
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `gabinetes_funcionarios` (
   `cargo` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_gabinete` (`id_gabinete`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=950 ;
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `materias_tipo` (
   PRIMARY KEY (`id`),
   KEY `codigo` (`codigo`),
   KEY `abreviacao` (`abreviacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 -- --------------------------------------------------------
 
@@ -143,6 +143,21 @@ CREATE TABLE IF NOT EXISTS `projetos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `projetos_assuntos`
+--
+
+CREATE TABLE IF NOT EXISTS `projetos_assuntos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_projeto` int(11) NOT NULL,
+  `assunto_descricao` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_projeto` (`id_projeto`),
+  KEY `descricao_assunto` (`assunto_descricao`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=302461 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `projetos_autores`
 --
 
@@ -153,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `projetos_autores` (
   PRIMARY KEY (`id`),
   KEY `id_projeto` (`id_projeto`),
   KEY `id_autor` (`id_vereador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36514 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36515 ;
 
 -- --------------------------------------------------------
 
@@ -182,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `vereadores_nome_fix` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_errado` (`nome_errado`),
   KEY `id_vereador` (`id_vereador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1021 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1006 ;
 
 -- --------------------------------------------------------
 
@@ -222,3 +237,34 @@ CREATE TABLE IF NOT EXISTS `vereadores_vereancas` (
   KEY `data_fim` (`data_fim`),
   KEY `partido` (`partido`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3448 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `vereadores_votacoes`
+--
+
+CREATE TABLE IF NOT EXISTS `vereadores_votacoes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_vereador` int(11) NOT NULL,
+  `id_projeto` int(11) NOT NULL,
+  `id_votacao_tipo` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_vereador` (`id_vereador`),
+  KEY `id_projeto` (`id_projeto`),
+  KEY `id_votacao_tipo` (`id_votacao_tipo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3961 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `votacoes_tipo`
+--
+
+CREATE TABLE IF NOT EXISTS `votacoes_tipo` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(10) NOT NULL,
+  `descricao_fix` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `descricao_fix` (`descricao_fix`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
