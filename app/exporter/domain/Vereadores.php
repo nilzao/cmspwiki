@@ -22,6 +22,7 @@ class app_exporter_domain_Vereadores {
 		$vereadorAoDb = new app_exporter_ao_db_Vereadores();
 		$projetosAoDb = new app_exporter_ao_db_Projetos();
 		$vereadorVereancaAoDb = new app_exporter_ao_db_VereadoresVereancas();
+		$votacaoResumo = new app_exporter_ao_db_VereadoresVotacaoResumo();
 		//tel camara: (11) 3396-4000
 		$lista = $gabineteAoDb->getAll();
 		$jsonArray = array();
@@ -38,7 +39,7 @@ class app_exporter_domain_Vereadores {
 				$jsonArray[$i]['vereador_anterior'] = 
 					$vereadorAoDb->getById($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior);
 			}
-			
+			$jsonArray[$i]['resumo_votos'] = $votacaoResumo->getByIdVereador($vereadorBeanDb->id);
 			$jsonArray[$i]['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
 			
 			$jsonStr .= json_encode($jsonArray)."\n";
