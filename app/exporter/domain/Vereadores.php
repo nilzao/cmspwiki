@@ -20,31 +20,27 @@ class app_exporter_domain_Vereadores {
 		$jsonStr = '';
 		$gabineteAoDb = new app_exporter_ao_db_Gabinetes();
 		$vereadorAoDb = new app_exporter_ao_db_Vereadores();
+		$projetosAoDb = new app_exporter_ao_db_Projetos();
 		$vereadorVereancaAoDb = new app_exporter_ao_db_VereadoresVereancas();
 		//tel camara: (11) 3396-4000
 		$lista = $gabineteAoDb->getAll();
 		$jsonArray = array();
 		$i = 0;
 		foreach($lista as $gab){
-			//print_r($gab);
 			$jsonArray[$i]['gabinete'] = $gab;
 			$vereadorBeanDb = $vereadorAoDb->getById($gab->id_vereador);
-			//print_r($vereadorBeanDb);
 			$jsonArray[$i]['vereador'] = $vereadorBeanDb;
-			$vereadorVereancaBeanDb = $vereadorVereancaAoDb->getByIdVereador($vereadorBeanDb->id);
-			//print_r($vereadorVereancaBeanDb);
-			$jsonArray[$i]['vereancas'] = $vereadorVereancaBeanDb;
-			
-			if (!empty($vereadorVereancaBeanDb) 
-				&& !empty($vereadorVereancaBeanDb[0])
-				&& !empty($vereadorVereancaBeanDb[0]->id_vereador_anterior) ){
+			$vereadorVereancaArrayBeanDb = $vereadorVereancaAoDb->getByIdVereador($vereadorBeanDb->id);
+			$jsonArray[$i]['vereancas'] = $vereadorVereancaArrayBeanDb;
+			if (!empty($vereadorVereancaArrayBeanDb) 
+				&& !empty($vereadorVereancaArrayBeanDb[0])
+				&& !empty($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior) ){
 				$jsonArray[$i]['vereador_anterior'] = 
-					$vereadorAoDb->getById($vereadorVereancaBeanDb[0]->id_vereador_anterior);
+					$vereadorAoDb->getById($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior);
 			}
 			
+			$jsonArray[$i]['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
 			
-			
-			//print_r($jsonArray);
 			$jsonStr .= json_encode($jsonArray)."\n";
 			
 			$i++;
