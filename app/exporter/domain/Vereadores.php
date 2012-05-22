@@ -22,7 +22,6 @@ class app_exporter_domain_Vereadores {
 	}
 	
 	private function export(){
-		$jsonStr = '';
 		$gabineteAoDb = new app_exporter_ao_db_Gabinetes();
 		$vereadorAoDb = new app_exporter_ao_db_Vereadores();
 		$projetosAoDb = new app_exporter_ao_db_Projetos();
@@ -32,41 +31,46 @@ class app_exporter_domain_Vereadores {
 		$gabineteDespesasResumoAoDb = new app_exporter_ao_db_GabinetesDespesasResumo();
 		$rankingVereadorAoDb = new app_exporter_ao_db_Rankings();
 		
-		
+		$listaNomes = array();
 		$lista = $gabineteAoDb->getAll();
-		$jsonArray = array();
-		$i = 0;
+
 		foreach($lista as $gab){
-			$jsonArray[$i]['gabinete'] = $gab;
+			$jsonStr = '[';
+			$jsonArray = array();
+			$jsonArray['gabinete'] = $gab;
 			$vereadorBeanDb = $vereadorAoDb->getById($gab->id_vereador);
 			$arrayIdVereadores = $vereadorAoDb->getAllAnteriores($vereadorBeanDb->id);
-			$jsonArray[$i]['vereador'] = $vereadorBeanDb;
+			$jsonArray['vereador'] = $vereadorBeanDb;
 			$vereadorVereancaArrayBeanDb = $vereadorVereancaAoDb->getByIdVereador($vereadorBeanDb->id);
-			$jsonArray[$i]['vereancas'] = $vereadorVereancaArrayBeanDb;
+			$jsonArray['vereancas'] = $vereadorVereancaArrayBeanDb;
 			if (!empty($vereadorVereancaArrayBeanDb)
 					&& !empty($vereadorVereancaArrayBeanDb[0])
 					&& !empty($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior) ){
-				$jsonArray[$i]['vereador_anterior'] =
+				$jsonArray['vereador_anterior'] =
 				$vereadorAoDb->getById($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior);
 			}
-			$jsonArray[$i]['resumo_votos'] = $votacaoResumo->getByIdVereador($vereadorBeanDb->id);
-			$jsonArray[$i]['funcionarios'] = $gabineteFuncionariosAoDb->getByIdGab($gab->id);
-			$jsonArray[$i]['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
+			$jsonArray['resumo_votos'] = $votacaoResumo->getByIdVereador($vereadorBeanDb->id);
+			$jsonArray['funcionarios'] = $gabineteFuncionariosAoDb->getByIdGab($gab->id);
+			$jsonArray['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
 			
-			$jsonArray[$i]['despesas'] =
+			$jsonArray['despesas'] =
 				$gabineteDespesasResumoAoDb->getByListId($arrayIdVereadores);
-			$jsonArray[$i]['ranking_total'] = 
+			$jsonArray['ranking_total'] = 
 				$rankingVereadorAoDb->getByIdVereador($vereadorBeanDb->id,0);
 			
-			$jsonStr .= json_encode($jsonArray)."\n";
-				
-			$i++;
-				
-			//echo $jsonStr;
-			$arrayResult = json_decode($jsonStr);
-				
-			print_r($arrayResult);
-			die();
+			$jsonStr .= json_encode($jsonArray)."]\n";
+			
+			$nomeVereador = app_importer_lib_FixVereadorNome::fixNome($vereadorBeanDb->nome);
+			$nomeVereador = strtolower($nomeVereador);
+			$nomeVereador = ucfirst($nomeVereador).'_'.$vereadorBeanDb->id;
+			$listaNomes[] = $nomeVereador;
+			file_put_contents('./dadosJson/'.$nomeVereador.'.json', $jsonStr);
+			
+			//$arrayResult = json_decode($jsonStr);
+			//print_r($arrayResult);
 		}
+		$jsonStr = '';
+		$jsonStr = json_encode($listaNomes);
+		file_put_contents('./dadosJson/vereadores_arquivos.json', $jsonStr);
 	}
 }
