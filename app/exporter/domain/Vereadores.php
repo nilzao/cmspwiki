@@ -46,7 +46,7 @@ class app_exporter_domain_Vereadores {
 			$jsonArray[$i]['funcionarios'] = $gabineteFuncionariosAoDb->getByIdGab($gab->id);
 			$jsonArray[$i]['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
 			
-			$jsonArray[$i]['materias'] = 
+			$jsonArray[$i]['despesas'] = 
 				$gabineteDespesasResumoAoDb->getByListId($arrayIdVereadores);
 
 			$jsonStr .= json_encode($jsonArray)."\n";
