@@ -17,9 +17,10 @@ class app_exporter_domain_VereadoresRanking {
 	
 	public function indexHandler(){
 		$rankingAoDb = new app_exporter_ao_db_Rankings();
-		echo "export Ranking\n";
+		echo "export VereadoresRanking\n";
 		$rankingAoDb->truncate();
 		$this->setRankingTotalGastosGabinete();
+		$this->exportRankingTotalGastosGabinete();
 		echo "\nfim\n";
 	}
 	

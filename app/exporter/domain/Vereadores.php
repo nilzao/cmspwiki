@@ -17,6 +17,11 @@ class app_exporter_domain_Vereadores {
 	
 	public function indexHandler(){
 		echo "export Vereadores\n";
+		$this->export();
+		echo "\nfim\n";
+	}
+	
+	private function export(){
 		$jsonStr = '';
 		$gabineteAoDb = new app_exporter_ao_db_Gabinetes();
 		$vereadorAoDb = new app_exporter_ao_db_Vereadores();
@@ -25,7 +30,9 @@ class app_exporter_domain_Vereadores {
 		$votacaoResumo = new app_exporter_ao_db_VereadoresVotacaoResumo();
 		$gabineteFuncionariosAoDb = new app_exporter_ao_db_GabinetesFuncionarios();
 		$gabineteDespesasResumoAoDb = new app_exporter_ao_db_GabinetesDespesasResumo();
- 
+		$rankingVereadorAoDb = new app_exporter_ao_db_Rankings();
+		
+		
 		$lista = $gabineteAoDb->getAll();
 		$jsonArray = array();
 		$i = 0;
@@ -36,29 +43,30 @@ class app_exporter_domain_Vereadores {
 			$jsonArray[$i]['vereador'] = $vereadorBeanDb;
 			$vereadorVereancaArrayBeanDb = $vereadorVereancaAoDb->getByIdVereador($vereadorBeanDb->id);
 			$jsonArray[$i]['vereancas'] = $vereadorVereancaArrayBeanDb;
-			if (!empty($vereadorVereancaArrayBeanDb) 
-				&& !empty($vereadorVereancaArrayBeanDb[0])
-				&& !empty($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior) ){
-				$jsonArray[$i]['vereador_anterior'] = 
-					$vereadorAoDb->getById($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior);
+			if (!empty($vereadorVereancaArrayBeanDb)
+					&& !empty($vereadorVereancaArrayBeanDb[0])
+					&& !empty($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior) ){
+				$jsonArray[$i]['vereador_anterior'] =
+				$vereadorAoDb->getById($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior);
 			}
 			$jsonArray[$i]['resumo_votos'] = $votacaoResumo->getByIdVereador($vereadorBeanDb->id);
 			$jsonArray[$i]['funcionarios'] = $gabineteFuncionariosAoDb->getByIdGab($gab->id);
 			$jsonArray[$i]['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
 			
-			$jsonArray[$i]['despesas'] = 
+			$jsonArray[$i]['despesas'] =
 				$gabineteDespesasResumoAoDb->getByListId($arrayIdVereadores);
-
+			$jsonArray[$i]['ranking_total'] = 
+				$rankingVereadorAoDb->getByIdVereador($vereadorBeanDb->id,0);
+			
 			$jsonStr .= json_encode($jsonArray)."\n";
-			
+				
 			$i++;
-			
+				
 			//echo $jsonStr;
 			$arrayResult = json_decode($jsonStr);
-			
+				
 			print_r($arrayResult);
 			die();
 		}
-		echo "\nfim\n";
 	}
 }
