@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 21/05/2012 às 20:33:28
+-- Tempo de Geração: 22/05/2012 às 13:16:51
 -- Versão do Servidor: 5.5.24-log
 -- Versão do PHP: 5.4.3
 
@@ -169,6 +169,34 @@ CREATE TABLE IF NOT EXISTS `projetos_autores` (
   KEY `id_projeto` (`id_projeto`),
   KEY `id_autor` (`id_vereador`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36515 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `rankings`
+--
+
+CREATE TABLE IF NOT EXISTS `rankings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_vereador` int(11) DEFAULT NULL,
+  `id_ranking_tipo` smallint(6) DEFAULT '0',
+  `posicao` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=56 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `rankings_tipo`
+--
+
+CREATE TABLE IF NOT EXISTS `rankings_tipo` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(45) DEFAULT NULL,
+  `descricao_fix` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `descricao_fix` (`descricao_fix`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
