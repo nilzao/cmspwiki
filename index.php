@@ -19,7 +19,7 @@ function __autoloadKnl($className){
     }
 }
 spl_autoload_register('__autoloadKnl');
-$path = './libext/adodb5'. PATH_SEPARATOR ."./libext/phpmailer";
+$path = './libext/adodb5'. PATH_SEPARATOR ."./libext/phpmailer". PATH_SEPARATOR ."./libext/snoopy";
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 header( 'Content-type: text/html; charset=utf-8' );
 //date_default_timezone_set(knl_lib_Config::getInstance()->getTimezone());
