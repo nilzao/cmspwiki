@@ -30,10 +30,9 @@ class app_exporter_domain_Vereadores {
 		$jsonArray = array();
 		$i = 0;
 		foreach($lista as $gab){
-			$arrayIdVereadores = array();
 			$jsonArray[$i]['gabinete'] = $gab;
 			$vereadorBeanDb = $vereadorAoDb->getById($gab->id_vereador);
-			$arrayIdVereadores[] = $vereadorBeanDb->id;
+			$arrayIdVereadores = $vereadorAoDb->getAllAnteriores($vereadorBeanDb->id);
 			$jsonArray[$i]['vereador'] = $vereadorBeanDb;
 			$vereadorVereancaArrayBeanDb = $vereadorVereancaAoDb->getByIdVereador($vereadorBeanDb->id);
 			$jsonArray[$i]['vereancas'] = $vereadorVereancaArrayBeanDb;
@@ -42,7 +41,6 @@ class app_exporter_domain_Vereadores {
 				&& !empty($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior) ){
 				$jsonArray[$i]['vereador_anterior'] = 
 					$vereadorAoDb->getById($vereadorVereancaArrayBeanDb[0]->id_vereador_anterior);
-				$arrayIdVereadores[] = $jsonArray[$i]['vereador_anterior']->id;
 			}
 			$jsonArray[$i]['resumo_votos'] = $votacaoResumo->getByIdVereador($vereadorBeanDb->id);
 			$jsonArray[$i]['funcionarios'] = $gabineteFuncionariosAoDb->getByIdGab($gab->id);
@@ -50,12 +48,14 @@ class app_exporter_domain_Vereadores {
 			
 			$jsonArray[$i]['materias'] = 
 				$gabineteDespesasResumoAoDb->getByListId($arrayIdVereadores);
+
 			$jsonStr .= json_encode($jsonArray)."\n";
 			
 			$i++;
 			
 			//echo $jsonStr;
 			$arrayResult = json_decode($jsonStr);
+			
 			print_r($arrayResult);
 			die();
 		}

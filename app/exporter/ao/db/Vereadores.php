@@ -27,4 +27,21 @@ class app_exporter_ao_db_Vereadores{
 		}
 		return $objbean;
 	}
+	
+	public function getAllAnteriores($id){
+		$lista = array($id);
+		$vereadoresVereancasAoDb = new app_exporter_ao_db_VereadoresVereancas();
+		$listaAnterior = array('1');
+		$idTmp = $id;
+		while(count($listaAnterior) != 0) {
+			$listaAnterior = $vereadoresVereancasAoDb->getByIdVereador($idTmp);
+			if (count($listaAnterior) > 0){
+				$idTmp = $listaAnterior[0]->id_vereador_anterior;
+				$lista[] = $idTmp;
+			} else {
+				$idTmp = 0;
+			}
+		}
+		return $lista;
+	}
 }
