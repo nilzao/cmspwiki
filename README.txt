@@ -9,12 +9,18 @@ importador:
 	  index.php?a=importer
 
 exporador;
-1- dar permissões de escrita ao diretório ./dadosJson 
+1- dar permissões de escrita ao diretório ./dadosJson
+2- rodar o exportador no console:
+		"php index.php exporter"
+	ou rodar no navegador (provavel timeout):
+		index.php?a=exporter 
 
 publicador:
-	em desenvolvimento.
-	
-A proposta final é automatizar com um bot publicador. 
+1- editar o arquivo app/publisher/lib/Config.php com endereço raiz do wiki
+2- rodar o publicador no console:
+		"php index.php publisher"
+	ou rodar no navegador (provavel timeout):
+		index.php?a=publisher
 
 exemplo de wiki com os dados gerados dentro das 48h do 1o Hackaton desafiodadosabertos.org:
 
