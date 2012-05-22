@@ -1,4 +1,6 @@
 <?php
+require_once('Snoopy.class.php');
+
 class app_publisher_controller_FrontController {
 	private static $instance;
 	

@@ -23,6 +23,11 @@ class app_publisher_domain_Vereadores {
 	}
 	
 	private function publish(){
-		echo "teste snoopy\n";
+		$paginaAoSnoopy = new app_publisher_ao_snoopy_Paginas();
+		$paginaBeanSnoopy = new app_publisher_bean_snoopy_Paginas();
+		$paginaBeanSnoopy->pagina = "zzz";
+		$paginaBeanSnoopy->texto = "wiki full!";
+		
+		$paginaAoSnoopy->publish($paginaBeanSnoopy);
 	}
 }
