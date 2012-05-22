@@ -8,7 +8,10 @@ importador:
    ou rodar no navegador (provavel timeout):
 	  index.php?a=importer
 
-exporador / publicador:
+exporador;
+1- dar permissões de escrita ao diretório ./dadosJson 
+
+publicador:
 	em desenvolvimento.
 	
 A proposta final é automatizar com um bot publicador. 
