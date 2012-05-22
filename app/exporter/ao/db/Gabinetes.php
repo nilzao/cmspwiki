@@ -33,7 +33,7 @@ class app_exporter_ao_db_Gabinetes{
 				$objbean->num_gabinete = $l['num_gabinete'];
 				$objbean->ramal = $l['ramal'];
 				$objbean->telefone = '(11) 3396-4000';
-				$objbean->fax = $l['fax'];
+				$objbean->fax = "(11) ".$l['fax'];
 				$objbean->sala = $l['sala'];
 				$lista[] = $objbean;
 			}
