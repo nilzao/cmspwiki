@@ -35,10 +35,7 @@ class app_publisher_domain_Vereadores {
 			$jsonVereador = file_get_contents('./dadosJson/'.$v.'.json');
 			$arrayVereador = json_decode($jsonVereador);
 			$arrayVereador = $arrayVereador[0];
-			unset($arrayVereador->materias);
-			//unset($arrayVereador->despesas);
-			unset($arrayVereador->funcionarios);
-			unset($arrayVereador->resumo_votos);
+			//unset($arrayVereador->materias);
 			
 			$nomeVereador = $arrayVereador->vereador->nome;
 			$nomeVereadorFix = app_importer_lib_FixVereadorNome::fixNome($nomeVereador);
@@ -125,21 +122,62 @@ class app_publisher_domain_Vereadores {
 				$paginaBeanSnoopy->texto .="|-
 | ".$desp->descricao."|| align=\"right\" | R$ ".$desp->total."\n";
 			}
-			$paginaBeanSnoopy->texto .= "\n|}";
+			$paginaBeanSnoopy->texto .= "\n|}\n";
+			$posicao = $arrayVereador->ranking_total->posicao;
+			$paginaBeanSnoopy->texto .= "O vereador '''".$nomeVereador."''', é o '''".$posicao."º''' colocado entre os [[vereadores|55 vereadores]] no [[ranking de gastos com gabinete]].";
+			
+			$paginaBeanSnoopy->texto .= "
+======Relação de funcionários ligados ao ".$gabNum."º gabinete======
+";
+
+			$paginaBeanSnoopy->texto .= "
+{| border=1
+|-
+| '''Nome''' || '''Cargo'''";
+			foreach($arrayVereador->funcionarios as $func){
+				$paginaBeanSnoopy->texto .= "
+|- 
+| ".$func->nome." || ".$func->cargo."
+";
+			}
+			$paginaBeanSnoopy->texto .= "|}\n";
+			
+			$paginaBeanSnoopy->texto .="
+=====Votações=====
+
+Total de votações nominais em matérias pelo vereador '''".$nomeVereador."'''
+{| border=1
+|-
+|  '''Tipo de voto''' || align=\"right\" | '''Quantidade'''";
+
+			
+			foreach($arrayVereador->resumo_votos as $voto){
+				$paginaBeanSnoopy->texto .= "
+|- 
+| ".$voto->tipo_voto." || ".$voto->total."";
+			}
+			$paginaBeanSnoopy->texto .= "\n|}\n";
+
+			$paginaBeanSnoopy->texto .="
+==Matérias propostas==
+";
+			
+			foreach($arrayVereador->materias as $materia){
+				$paginaBeanSnoopy->texto .= "
+[[".$materia->tipo_projeto."-".
+$materia->numero_projeto."/".
+$materia->ano_projeto."]] -> ".$materia->ementa."\n\n";
+			}
 			
 			//$paginaBeanSnoopy->texto .= "xxx";
-			
 			$paginaBeanSnoopy->texto .= "
 
 			
 wiki full!
 ";
-			
+			//print_r($arrayVereador);
 			//print_r($paginaBeanSnoopy);
 			$paginaAoSnoopy->publish($paginaBeanSnoopy);
-			die();
 		}
-		
-		
 	}
 }
