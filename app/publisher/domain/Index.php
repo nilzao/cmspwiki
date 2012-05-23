@@ -17,6 +17,7 @@ class app_publisher_domain_Index {
 	}
 	
 	public function indexHandler(){
+		app_publisher_domain_CmspWiki::getInstance()->handle();
 		app_publisher_domain_Vereadores::getInstance()->handle();
 	}
 }

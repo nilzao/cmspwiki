@@ -16,7 +16,6 @@ class app_publisher_domain_Vereadores {
 	}
 	
 	public function indexHandler(){
-		$rankingAoDb = new app_exporter_ao_db_Rankings();
 		echo "publish Vereadores\n";
 		$this->publish();
 		echo "\nfim\n";
@@ -26,6 +25,7 @@ class app_publisher_domain_Vereadores {
 		//precisa refatorar isso, criar ao para json, bean para json, array mais simples p/ view
 		$paginaAoSnoopy = new app_publisher_ao_snoopy_Paginas();
 		$paginaBeanSnoopy = new app_publisher_bean_snoopy_Paginas();
+		$viewLoader = knl_lib_ViewLoader::getInstance();
 		
 		$jsonListaVereadores = file_get_contents('./dadosJson/vereadores_arquivos.json');
 		$arrayListaVereadores = json_decode($jsonListaVereadores);
@@ -35,12 +35,12 @@ class app_publisher_domain_Vereadores {
 			$arrayVereador = json_decode($jsonVereador);
 			$arrayVereadoresNome[] = $arrayVereador->vereador->nome;
 			
-			$viewLoader = knl_lib_ViewLoader::getInstance();
+			
 			$viewLoader->setVar('viewArray', $arrayVereador);
 			
 			$paginaBeanSnoopy->pagina = $arrayVereador->vereador->nome;
 			$paginaBeanSnoopy->texto = $viewLoader->display('app/publisher', 'vereador',false);
-			//$paginaAoSnoopy->publish($paginaBeanSnoopy);
+			$paginaAoSnoopy->publish($paginaBeanSnoopy);
 		}
 		$viewLoader->setVar('viewArray', $arrayVereadoresNome);
 		$paginaBeanSnoopy->pagina = "Vereadores";
