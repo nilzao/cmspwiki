@@ -1,0 +1,8 @@
+Softwares/Classes de terceiros utilizados:
+
+AdodbPhp - BSD and LGPL 2.1. 
+Snoopy - LGPL 2.1
+
+Publicador testado em: 
+
+Mediawiki 11.9.0 - GPL 2
