@@ -1,4 +1,4 @@
-A ferramenta CMSPWiki, criada durante a 1° Hackathon - Desafio de dados abertos 
+Ferramenta CMSPWiki, criada durante a 1° Hackathon - Desafio de dados abertos 
 da Maratona hacker da Câmara Municipal de São Paulo em 12/05/2012.
 
 De acordo com a Lei nº 12.527, de 18 de Novembro de 2011 - 
