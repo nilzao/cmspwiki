@@ -97,9 +97,7 @@ publicador:
 	ou rodar no navegador (provavel timeout):
 		index.php?a=publisher
 
-exemplo de wiki com os dados gerados dentro das 48h do 1o Hackaton 
-desafiodadosabertos.org:
-
+exemplo de wiki com os dados gerados e publicados automaticamente:
 http://www.capitalphp.com.br/wiki
 
 
