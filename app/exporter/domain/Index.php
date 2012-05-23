@@ -16,7 +16,7 @@ class app_exporter_domain_Index {
 	}
 	
 	public function indexHandler(){
-		app_exporter_domain_VereadoresRanking::getInstance()->handle();
+		//app_exporter_domain_VereadoresRanking::getInstance()->handle();
 		app_exporter_domain_Vereadores::getInstance()->handle();
 	}
 }

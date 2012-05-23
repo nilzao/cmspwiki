@@ -29,7 +29,7 @@ class app_exporter_domain_Vereadores {
 		$votacaoResumo = new app_exporter_ao_db_VereadoresVotacaoResumo();
 		$gabineteFuncionariosAoDb = new app_exporter_ao_db_GabinetesFuncionarios();
 		$gabineteDespesasResumoAoDb = new app_exporter_ao_db_GabinetesDespesasResumo();
-		$rankingVereadorAoDb = new app_exporter_ao_db_Rankings();
+		$vereadorNomeParlamentarAoDb = new app_exporter_ao_db_VereadoresNomeParlamentar();
 		
 		$listaNomes = array();
 		$lista = $gabineteAoDb->getAll();
@@ -45,6 +45,8 @@ class app_exporter_domain_Vereadores {
 			$jsonArray['resumo_votos'] = $votacaoResumo->getByIdVereador($vereadorBeanDb->id);
 			$jsonArray['funcionarios'] = $gabineteFuncionariosAoDb->getByIdGab($gab->id);
 			$jsonArray['materias'] = $projetosAoDb->getByIdVereador($vereadorBeanDb->id);
+			$jsonArray['nomes_parlamentar'] = 
+				$vereadorNomeParlamentarAoDb->getByIdVereador($vereadorBeanDb->id);
 			
 			$arrayIdVereadores = array($vereadorBeanDb->id);
 			$jsonArray['despesas'] =
