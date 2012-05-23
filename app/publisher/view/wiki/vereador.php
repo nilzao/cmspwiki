@@ -1,4 +1,5 @@
-<?php $viewArray = $viewLoader->getVar('viewArray');
+<?php
+$viewArray = $viewLoader->getVar('viewArray');
 $nomeVereador = $viewArray->vereador->nome;
 $nomeVereadorFix = app_importer_lib_FixVereadorNome::fixNome($nomeVereador);
 $nomeVereadorFix = strtolower($nomeVereadorFix);
@@ -49,23 +50,28 @@ $gabSala = $gabinete->sala;
 </div>
 == Mandatos ==
 === Vereanças ===
-<?php 
-foreach($viewArray->vereancas as $vereanca){
-	print_r($vereanca);
-}
-die();
-?>
-DataIni/DataFim
-"anterior", "posterior", "partido", "obs", etc.
+<?php foreach($viewArray->vereancas as $vereanca): ?>
+Período: <?php echo $vereanca->data_ini; ?> - <?php echo $vereanca->data_fim; ?>
 
-DataIni/DataFim
-"anterior", "posterior", "partido", "obs", etc.
 
-DataIni/DataFim
-"anterior", "posterior", "partido", "obs", etc.
+Situação: <?php echo $vereanca->situacao; ?>
 
-DataIni/DataFim
-"anterior", "posterior", "partido", "obs", etc.
+
+Partido: <?php echo $vereanca->partido; ?>
+
+
+<?php if (!empty($vereanca->nome_vereador_anterior)): ?>
+Vereador anterior: <?php echo $vereanca->nome_vereador_anterior; ?>
+
+
+<?php endif; ?>
+<?php echo $vereanca->partido_obs; ?>
+
+
+<?php echo $vereanca->obs; ?>
+
+
+<?php endforeach; ?>
 === 01/01/2009 a 31/12/2012 CMSP===
 ==== Orçamentos para o gabinete ====
 <?php echo $nomeVereador; ?> é o atual reponsável pelo <?php echo $gabNum; ?>º gabinete da [[Câmara Municipal de São Paulo]].
