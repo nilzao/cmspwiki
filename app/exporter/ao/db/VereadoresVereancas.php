@@ -10,21 +10,20 @@ class app_exporter_ao_db_VereadoresVereancas{
 	public function getByIdVereador($id){
 		$lista = array();
 		$query = "SELECT
-				id,
-				id_vereador,
-				id_vereador_anterior,
-				data_ini,
-				data_fim,
-				situacao,
-				partido,
-				partido_obs,
-				obs
-				FROM vereadores_vereancas
-				WHERE id_vereador = ?
-				AND data_ini BETWEEN '2009-01-01' AND '2012-12-31'
-				ORDER BY data_ini
-				";
-		$stmt = $this->dataBase->conn->execute($query,$id);
+			id,
+			id_vereador,
+			id_vereador_anterior,
+			data_ini,
+			data_fim,
+			situacao,
+			partido,
+			partido_obs,
+			obs
+			FROM vereadores_vereancas
+			WHERE id_vereador = $id
+			AND data_ini BETWEEN '2009-01-01' AND '2012-12-31'
+			ORDER BY data_ini DESC ";
+		$stmt = $this->dataBase->conn->execute($query);
 		if (!$stmt){
 			var_dump($id);
 			print $this->dataBase->conn->ErrorMsg();
