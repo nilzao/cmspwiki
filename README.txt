@@ -121,3 +121,4 @@ e utilizado oficialmente na Câmara Municipal de São Paulo
 - Implementar autenticação do robô publicador no Wiki, para configurar dados 
   não editáveis por humanos.
 - Padronizar e melhorar os dados gerados wikificados pelo publicador.
+- Gerador automático de gráficos de rankings.
