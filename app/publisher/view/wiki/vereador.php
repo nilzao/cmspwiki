@@ -7,11 +7,7 @@ $nomeVereadorFix = ucfirst($nomeVereadorFix);
 $vereancas = $viewArray->vereancas[0];
 $situacao = $vereancas->situacao;
 $partido = $vereancas->partido;
-$dataIni = $vereancas->data_ini;
-$dataFim = $vereancas->data_fim;
-	
-$nomeVereadorAnterior = $viewArray->vereador_anterior->nome;
-	
+
 $gabinete = $viewArray->gabinete;
 $gabNum = $gabinete->num_gabinete;
 $gabTel = $gabinete->telefone;
@@ -53,7 +49,12 @@ $gabSala = $gabinete->sala;
 </div>
 == Mandatos ==
 === Vereanças ===
-
+<?php 
+foreach($viewArray->vereancas as $vereanca){
+	print_r($vereanca);
+}
+die();
+?>
 DataIni/DataFim
 "anterior", "posterior", "partido", "obs", etc.
 

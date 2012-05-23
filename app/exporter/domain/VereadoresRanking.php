@@ -42,8 +42,9 @@ class app_exporter_domain_VereadoresRanking {
 		
 		foreach($lista as $gab){
 			$vereadorBeanDb = $vereadorAoDb->getById($gab->id_vereador);
-			$arrayIdVereadores = $vereadorAoDb->getAllAnteriores($vereadorBeanDb->id);
+			//$arrayIdVereadores = $vereadorAoDb->getAllAnteriores($vereadorBeanDb->id);
 			$id = $vereadorBeanDb->id;
+			$arrayIdVereadores = array($id);
 			$despesas = $gabineteDespesasResumoAoDb->getByListId($arrayIdVereadores);
 			$despesas = end($despesas);
 			$arrayTmp[$id] = str_replace('.', '', $despesas->total);

@@ -11,6 +11,7 @@ class app_exporter_ao_db_VereadoresVotacaoResumo{
 		$lista = array();
 		$query = "SELECT 
 				votacoes_tipo.descricao_fix,
+				votacoes_tipo.descricao,
 				SUM(1) AS total
 				FROM  `vereadores` 
 				LEFT JOIN vereadores_votacoes ON ( vereadores_votacoes.id_vereador = vereadores.id ) 
@@ -28,7 +29,8 @@ class app_exporter_ao_db_VereadoresVotacaoResumo{
 		else {
 			while ($l = $stmt->FetchRow()) {
 				$objbean = new app_exporter_bean_db_VereadoresVotacaoResumo();
-				$objbean->tipo_voto = strtolower($l['descricao_fix']);
+				$objbean->tipo_voto = $l['descricao'];
+				$objbean->tipo_voto_fix = strtolower($l['descricao_fix']);
 				$objbean->total = $l['total'];
 				$lista[] = $objbean; 
 			}

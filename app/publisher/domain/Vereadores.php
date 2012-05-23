@@ -33,7 +33,7 @@ class app_publisher_domain_Vereadores {
 		foreach($arrayListaVereadores as $v){
 			$jsonVereador = file_get_contents('./dadosJson/'.$v.'.json');
 			$arrayVereador = json_decode($jsonVereador);
-			$arrayVereador = $arrayVereador[0];
+			//$arrayVereador = $arrayVereador[0];
 			
 			$viewLoader = knl_lib_ViewLoader::getInstance();
 			$viewLoader->setVar('viewArray', $arrayVereador);
@@ -41,6 +41,7 @@ class app_publisher_domain_Vereadores {
 			$paginaBeanSnoopy->pagina = $arrayVereador->vereador->nome;
 			$paginaBeanSnoopy->texto = $viewLoader->display('app/publisher', 'vereador',false);
 			$paginaAoSnoopy->publish($paginaBeanSnoopy);
+			die();
 		}
 	}
 }

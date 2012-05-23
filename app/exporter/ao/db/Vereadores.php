@@ -8,6 +8,8 @@ class app_exporter_ao_db_Vereadores{
 	}
 
 	public function getById($id){
+		$id=(int) $id;
+		$id = (empty($id)) ? -1 : $id;
 		$objbean = new app_exporter_bean_db_Vereadores();
 		$query = "SELECT 
 				id,id_out,nome

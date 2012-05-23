@@ -3,6 +3,7 @@ class app_exporter_bean_db_VereadoresVereancas {
 	public $id;
 	public $id_vereador;
 	public $id_vereador_anterior;
+	public $nome_vereador_anterior;
 	public $data_ini;
 	public $data_fim;
 	public $situacao;
