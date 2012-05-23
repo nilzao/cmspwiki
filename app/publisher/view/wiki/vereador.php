@@ -48,8 +48,18 @@ $gabSala = $gabinete->sala;
 </div>
 |}
 </div>
+<?php if (count($viewArray->nomes_parlamentar)): ?>
+== Nomes Parlamentares ==
+<?php foreach($viewArray->nomes_parlamentar as $nomeParlamentar): ?>
+<?php echo $nomeParlamentar->nome_parlamentar;?>
+
+
+<?php endforeach; ?>
+<?php endif; ?>
+
 == Mandatos ==
-=== Vereanças ===
+=== 01/01/2009 a 31/12/2012 CMSP===
+==== Vereanças ====
 <?php foreach($viewArray->vereancas as $vereanca): ?>
 Período: <?php echo $vereanca->data_ini; ?> - <?php echo $vereanca->data_fim; ?>
 
@@ -72,7 +82,6 @@ Vereador anterior: <?php echo $vereanca->nome_vereador_anterior; ?>
 
 
 <?php endforeach; ?>
-=== 01/01/2009 a 31/12/2012 CMSP===
 ==== Orçamentos para o gabinete ====
 <?php echo $nomeVereador; ?> é o atual reponsável pelo <?php echo $gabNum; ?>º gabinete da [[Câmara Municipal de São Paulo]].
 =====Resumo dos gastos do <?php echo $situacao; ?> =====
